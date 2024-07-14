@@ -17,7 +17,7 @@ export default function Page() {
               Auhenticate With PoE
             </Button>
             <Button variant="outline">
-              Discord
+              Github
             </Button>
           </div>
         </CardContent>
