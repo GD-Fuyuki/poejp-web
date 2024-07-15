@@ -4,6 +4,7 @@ import "./globals.css";
 import SideNav from "./ui/sidenav";
 import SideNavigation from "./ui/sidenavigation";
 
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -22,7 +23,9 @@ export default function RootLayout({
         <div>
           <SideNavigation />
         </div>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
         {children}
+        </div>
       </body>
     </html>
   );
