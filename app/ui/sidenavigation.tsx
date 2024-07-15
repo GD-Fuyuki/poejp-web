@@ -13,7 +13,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { name: 'Top', href: '/', icon: Home },
   { name: 'Login', href: '/login', icon: LogIn },
-  { name: 'Check', href: '/check', icon: null },
+  { name: 'Check', href: '/check', icon: LogIn },
 ];
 
 interface SideNavigationProps {
