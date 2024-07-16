@@ -12,7 +12,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { name: 'Top', href: '/', icon: Home },
-  { name: 'Login', href: '/login', icon: LogIn },
+  { name: 'Login Test', href: '/login', icon: LogIn },
   { name: 'Check', href: '/check', icon: LogIn },
 ];
 
@@ -27,7 +27,7 @@ const SideNavigation: React.FC<SideNavigationProps> = ({
 }) => {
 
   return (
-    <nav className="w-64 h-screen bg-gray-800 text-white p-4 fixed left-0 top-0">
+    <nav className="w-58 h-screen bg-gray-800 text-white p-4 fixed left-0 top-0">
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-center h-16 mb-8">
         <Link href="/" passHref>
