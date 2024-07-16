@@ -30,7 +30,7 @@ const Header: React.FC = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-4">
           {navItems.map((item) => (
-            <Link href={item.path} passHref >
+            <Link href={item.path} passHref key={item.name}>
               {item.name}
             </Link>
           ))}
