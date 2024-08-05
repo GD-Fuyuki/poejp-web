@@ -72,6 +72,10 @@ export async function GET(request: NextRequest) {
     return redirectResponse
   } catch (error) {
     console.error('Error exchanging code for token:', error)
+    if (axios.isAxiosError(error)) {
+      console.error('Response data:', error.response?.data)
+      console.error('Response status:', error.response?.status)
+    }
     return NextResponse.json({ error: 'Failed to exchange code for token' }, { status: 500 })
   }
 }
