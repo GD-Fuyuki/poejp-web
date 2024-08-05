@@ -17,3 +17,13 @@ function base64UrlEncode(str: string): string {
     .replace(/\//g, '_')
     .replace(/=+$/, '')
 }
+
+export function initiatePKCEFlow() {
+    const codeVerifier = generateCodeVerifier();
+    const codeChallenge = generateCodeChallenge(codeVerifier);
+    
+    // Store codeVerifier securely (e.g., in session or encrypted cookie)
+    // Use codeChallenge in the authorization request
+    
+    return { codeChallenge };
+  }

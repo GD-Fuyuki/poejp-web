@@ -6,7 +6,7 @@ const clientId = process.env.OAUTH_CLIENT_ID
 const clientSecret = process.env.OAUTH_CLIENT_SECRET
 const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/poe/callback`
 const scope = process.env.OAUTH_SCOPE
-const grant_type = "authorization_code"
+const grant_type = 'authorization_code'
 
 // 環境変数が設定されていることを確認する関数
 function assertEnvVar(varName: string): string {
@@ -24,8 +24,9 @@ export async function GET(request: NextRequest) {
   const state = searchParams.get('state')
   const cookieStore = cookies()
   const storedState = cookieStore.get('oauth_state')?.value
+  const codeVerifier = cookieStore.get('code_verifier')?.value
 
-  if (!code || !state || state !== storedState) {
+  if (!code || !state || state !== storedState || !codeVerifier) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
 
@@ -38,6 +39,7 @@ export async function GET(request: NextRequest) {
         code: code,
         redirect_uri: redirectUri,
         scope: scope,
+        code_verifier: codeVerifier
       },
       headers: {
         Accept: 'application/json',
@@ -58,6 +60,7 @@ export async function GET(request: NextRequest) {
 
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
     redirectResponse.cookies.set('oauth_state', '', { maxAge: 0 })
+    redirectResponse.cookies.set('code_verifier', '', { maxAge: 0 })
     redirectResponse.cookies.set('accessToken', access_token, {
       httpOnly: true,
       secure: true,
