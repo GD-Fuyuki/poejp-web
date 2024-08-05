@@ -55,13 +55,13 @@ export async function GET(request: NextRequest) {
     redirectResponse.cookies.set('oauth_state', '', { maxAge: 0 })
     redirectResponse.cookies.set('accessToken', access_token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 // 1 day
     })
     redirectResponse.cookies.set('username', username, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: true,
       sameSite: 'lax',
       maxAge: 60 * 60 * 24 // 1 day
     })
