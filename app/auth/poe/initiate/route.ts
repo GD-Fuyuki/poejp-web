@@ -14,15 +14,15 @@ export async function GET() {
   const response = NextResponse.json({ authUrl })
   response.cookies.set('code_verifier', codeVerifier, { 
     httpOnly: true, 
-    secure: false,
-    sameSite: 'lax',
-    maxAge: 60 * 1 // 1 minutes
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+    maxAge: 60 * 1 // 10 minutes
   })
   response.cookies.set('oauth_state', state, { 
     httpOnly: true, 
-    secure: false,
-    sameSite: 'lax',
-    maxAge: 60 * 1 // 1 minutes
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'none',
+    maxAge: 60 * 1 // 10 minutes
   })
 
   return response
