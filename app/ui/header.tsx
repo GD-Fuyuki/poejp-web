@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, User } from 'lucide-react';
+import GithubOAuthButton from '@/components/ui/GithubOAuthButton';
+import PoeOAuthButton from '@/components/ui/PoeOAuthButton';
 
 interface NavItem {
   name: string;
@@ -10,9 +12,9 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { name: 'Leagues', path: '/leagues' },
-  { name: 'Characters', path: '/characters' },
-  { name: 'Items', path: '/items' },
+    { name: 'Top', path: '/' },   
+    { name: 'Login Test', path: '/login' },
+    { name: 'Check', path: '/check' },
 ];
 
 const Header: React.FC = () => {
@@ -38,10 +40,8 @@ const Header: React.FC = () => {
 
         {/* User Action */}
         <div className="hidden md:block">
-          <button className="bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-md flex items-center">
-            <User className="mr-2" size={18} />
-            Signin with PoE
-          </button>
+          <GithubOAuthButton />
+          <PoeOAuthButton />
         </div>
 
       </div>

@@ -66,3 +66,11 @@ model Favorite {
 
   @@id([userId, articleId])
 }
+
+model RegistLeagueKalguur {
+  userId       String
+  playStyle    String[]
+  achievements String[]
+
+  @@id([userId])
+}
