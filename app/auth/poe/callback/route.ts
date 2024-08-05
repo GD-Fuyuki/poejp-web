@@ -5,7 +5,7 @@ import axios from 'axios'
 const clientId = process.env.OAUTH_CLIENT_ID
 const clientSecret = process.env.OAUTH_CLIENT_SECRET
 const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/poe/callback`
-const scope = process.env.OAUTH_SCOPE
+// const scope = process.env.OAUTH_SCOPE
 
 // 環境変数が設定されていることを確認する関数
 function assertEnvVar(varName: string): string {
@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
         client_secret: clientSecret,
         code: code,
         redirect_uri: redirectUri,
-        scope: scope,
+        // scope: scope,
       },
       headers: {
         Accept: 'application/json',
