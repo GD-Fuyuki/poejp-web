@@ -16,13 +16,13 @@ export async function GET() {
     httpOnly: true, 
     secure: false,
     sameSite: 'lax',
-    maxAge: 60 * 10 // 10 minutes
+    maxAge: 60 * 1 // 1 minutes
   })
   response.cookies.set('oauth_state', state, { 
     httpOnly: true, 
     secure: false,
     sameSite: 'lax',
-    maxAge: 60 * 10 // 10 minutes
+    maxAge: 60 * 1 // 1 minutes
   })
 
   return response
