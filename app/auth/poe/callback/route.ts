@@ -43,15 +43,16 @@ export async function GET(request: NextRequest) {
     })
 
     const { access_token } = tokenResponse.data
+    const { username } = tokenResponse.data
 
     // Fetch user information
-    const userResponse = await axios.get('https://api.pathofexile.com/profile', {
-      headers: {
-        Authorization: `token ${access_token}`,
-      },
-    })
+    // const userResponse = await axios.get('https://api.pathofexile.com/profile', {
+    //   headers: {
+    //     Authorization: `token ${access_token}`,
+    //   },
+    // })
 
-    const { login: username } = userResponse.data
+    // const { login: username } = userResponse.data
 
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
     redirectResponse.cookies.set('oauth_state', '', { maxAge: 0 })
