@@ -8,7 +8,8 @@ export function generateCodeVerifier(): string {
 
 export async function generateCodeChallenge(codeVerifier: string): Promise<string> {
   const digest = sha256(codeVerifier)
-  return btoa(String.fromCharCode.apply(null, new Uint8Array(digest)))
+  const digestArray = new Uint8Array(digest)
+  return btoa(String.fromCharCode.apply(null, Array.from(digestArray)))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '')
