@@ -12,14 +12,14 @@ export async function GET() {
   const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile&code_challenge=${codeChallenge}&code_challenge_method=S256`
 
   const response = NextResponse.json({ authUrl })
-  response.cookies.set('code_verifier', codeVerifier, { 
-    httpOnly: false, 
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'none',
-    maxAge: 60 * 1 // 10 minutes
-  })
+  // response.cookies.set('code_verifier', codeVerifier, { 
+  //   httpOnly: true, 
+  //   secure: process.env.NODE_ENV === 'production',
+  //   sameSite: 'none',
+  //   maxAge: 60 * 1 // 10 minutes
+  // })
   response.cookies.set('oauth_state', state, { 
-    httpOnly: false, 
+    httpOnly: true, 
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
     maxAge: 60 * 1 // 10 minutes
