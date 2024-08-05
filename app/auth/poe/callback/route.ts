@@ -64,13 +64,13 @@ export async function GET(request: NextRequest) {
     redirectResponse.cookies.set('accessToken', access_token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'none',
       maxAge: 60 * 60 * 24 // 1 day
     })
     redirectResponse.cookies.set('username', username, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'none',
       maxAge: 60 * 60 * 24 // 1 day
     })
 
