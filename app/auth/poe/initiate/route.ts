@@ -13,13 +13,13 @@ export async function GET() {
 
   const response = NextResponse.json({ authUrl })
   response.cookies.set('code_verifier', codeVerifier, { 
-    httpOnly: true, 
+    httpOnly: false, 
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
     maxAge: 60 * 1 // 10 minutes
   })
   response.cookies.set('oauth_state', state, { 
-    httpOnly: true, 
+    httpOnly: false, 
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
     maxAge: 60 * 1 // 10 minutes
