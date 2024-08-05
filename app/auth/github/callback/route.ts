@@ -5,9 +5,18 @@ import axios from 'axios'
 const clientId = process.env.OAUTH_CLIENT_ID
 const clientSecret = process.env.OAUTH_CLIENT_SECRET
 const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/github/callback`
-const tokenEndpoint = process.env.OAUTH_TOKEN_ENDPOINT
+
+// 環境変数が設定されていることを確認する関数
+function assertEnvVar(varName: string): string {
+  const value = process.env[varName]
+  if (!value) {
+    throw new Error(`Missing environment variable: ${varName}`)
+  }
+  return value
+}
 
 export async function GET(request: NextRequest) {
+  const tokenEndpointAsserted = assertEnvVar('OAUTH_TOKEN_ENDPOINT')
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get('code')
   const state = searchParams.get('state')
@@ -19,7 +28,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const tokenResponse = await axios.post(tokenEndpoint, null, {
+    const tokenResponse = await axios.post(tokenEndpointAsserted, null, {
       params: {
         client_id: clientId,
         client_secret: clientSecret,
