@@ -52,6 +52,11 @@ export async function GET(request: NextRequest) {
       },
     })
 
+    cookies().set('test_dummy2', 'test2', {
+      maxAge: 100
+    })
+
+
     const { access_token } = tokenResponse.data
     const { username } = tokenResponse.data
 
@@ -89,7 +94,7 @@ export async function GET(request: NextRequest) {
       path: '/',
     })
 
-    cookies().set('test_dummy2', 'test2', {
+    cookies().set('test_dummy3', 'test3', {
       maxAge: 100
     })
 
