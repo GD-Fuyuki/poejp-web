@@ -35,10 +35,10 @@ const SideNavigation: React.FC<SideNavigationProps> = ({
         </Link>
         </div>
         <ul className="space-y-2 flex-grow">
-          {navItems.map((item) => {
+          {navItems.map((item: any,index) => {
             const Icon = item.icon;
             return (
-              <li key={item.name}>
+              <li key={index}>
                 <Link href={item.href} passHref>
                     <p>{item.name}</p>
                 </Link>

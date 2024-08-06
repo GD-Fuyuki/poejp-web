@@ -14,7 +14,7 @@ export async function GET() {
   const response = NextResponse.json({ authUrl })
   response.cookies.set('code_verifier', codeVerifier, { 
     httpOnly: true, 
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'none',
     path: '/',
     domain: process.env.NEXT_PUBLIC_DOMAIN,
@@ -22,13 +22,14 @@ export async function GET() {
   })
   response.cookies.set('oauth_state', state, { 
     httpOnly: true, 
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'none',
     path: '/',
     domain: process.env.NEXT_PUBLIC_DOMAIN,
     maxAge: 60 * 1 // 10 minutes
   })
-
+  console.log(codeVerifier)
+  console.log(state)
   await new Promise(resolve => setTimeout(resolve, 1000))
   return response
 }
