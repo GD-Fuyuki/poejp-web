@@ -25,7 +25,7 @@ interface TokenResponse {
   refresh_token?: string;
 }
 
-export async function getAccessToken({ code, codeVerifier, scope = 'account:profile' }: TokenRequestParams): Promise<TokenResponse> {
+export async function getAccessToken(code: string, codeVerifier: string): Promise<TokenResponse> {
   const tokenEndpoint = getEnvVariable('OAUTH_TOKEN_ENDPOINT');
   const clientId = getEnvVariable('OAUTH_CLIENT_ID');
   const clientSecret = getEnvVariable('OAUTH_CLIENT_SECRET');
@@ -33,11 +33,11 @@ export async function getAccessToken({ code, codeVerifier, scope = 'account:prof
 
   const data = querystring.stringify({
     grant_type: 'authorization_code',
-    code,
+    code: code,
     client_id: clientId,
     client_secret: clientSecret,
     redirect_uri: redirectUri,
-    scope,
+    scope: 'account:profile',
     code_verifier: codeVerifier,
   });
 

@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       maxAge: 1000
     })
 
-    // const tokenData = await getAccessToken(code, codeVerifier);
+    const tokenData = await getAccessToken(code, codeVerifier);
 
     cookies().set('test_dummy2', 'test2', {
       maxAge: 100
