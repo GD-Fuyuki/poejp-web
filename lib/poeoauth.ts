@@ -1,3 +1,5 @@
+'use server'
+
 import axios from 'axios';
 import querystring from 'querystring';
 
@@ -42,10 +44,9 @@ export async function getAccessToken(code: string, codeVerifier: string) {
   });
 
   try {
-    const response = await axios.post<Record<string, unknown>>(tokenEndpoint, data, {
+    const response = await axios.post(tokenEndpoint, data, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
       },
     });
 
@@ -61,7 +62,7 @@ export async function getAccessToken(code: string, codeVerifier: string) {
   }
 }
 
-function parseTokenResponse(data: Record<string, unknown>): TokenResponse {
+function parseTokenResponse(data: any): TokenResponse {
   const requiredFields: (keyof TokenResponse)[] = [
     'access_token', 'expires_in', 'token_type', 'scope',
     'username', 'sub'
