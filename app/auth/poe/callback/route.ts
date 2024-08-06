@@ -23,40 +23,14 @@ export async function GET(request: NextRequest) {
       maxAge: 1000
     })
 
-    const tokenData = await getAccessToken(code, codeVerifier);
-
-    // const params = {
-    //   client_id: clientId,
-    //   client_secret: clientSecret,
-    //   grant_type: 'authorization_code',
-    //   code: code,
-    //   redirect_uri: redirectUri,
-    //   scope: 'account:profile',
-    //   code_verifier: codeVerifier
-    // };
-
-    // const tokenResponse = await axios.post(tokenEndpointAsserted, qs.stringify(params), {
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    // })
+    // const tokenData = await getAccessToken(code, codeVerifier);
 
     cookies().set('test_dummy2', 'test2', {
       maxAge: 100
     })
 
-
     // const { access_token } = tokenResponse.data
     // const { username } = tokenResponse.data
-
-    // Fetch user information
-    // const userResponse = await axios.get('https://api.pathofexile.com/profile', {
-    //   headers: {
-    //     Authorization: `token ${access_token}`,
-    //   },
-    // })
-
-    // const { login: username } = userResponse.data
 
     cookies().set('code_verifier', '', {
       maxAge: 0
