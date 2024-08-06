@@ -48,7 +48,7 @@ export async function GET(request: NextRequest) {
         code_verifier: codeVerifier
       },
       headers: {
-        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
     })
 
