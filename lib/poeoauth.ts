@@ -42,11 +42,15 @@ export async function getAccessToken(
   console.log('param', data)
 
   try {
-    // const response = await axios.post<TokenResponse>(tokenEndpoint, data, {
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded'
-    //   }
-    // });
+    const response = await axios.post<TokenResponse>(tokenEndpoint, data, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });;
     
     console.log('endpoint', tokenEndpoint)
 
