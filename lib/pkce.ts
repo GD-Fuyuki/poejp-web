@@ -1,10 +1,8 @@
 import crypto from 'crypto';
 
-export function generateCodeVerifier(): string {
-  const buffer = crypto.randomBytes(32);
-  return base64UrlEncode(buffer)
-    .slice(0, 128);  // Ensure maximum length of 128
-}
+export function generateCodeVerifier() {
+    return crypto.randomBytes(43).toString('base64url');
+  }
 
 export function generateCodeChallenge(codeVerifier: string): string {
   const hash = crypto.createHash('sha256').update(codeVerifier).digest();
