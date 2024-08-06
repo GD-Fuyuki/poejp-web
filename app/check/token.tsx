@@ -17,14 +17,11 @@ function assertEnvVar(varName: string): string {
   return value
 }
 
-const tokenEndpointAsserted = assertEnvVar('OAUTH_TOKEN_ENDPOINT')
-const cookieStore = cookies()
-const codeVerifier = cookieStore.get('code_verifier')?.value
-const code = cookieStore.get('code')?.value
-
-
-
 export async function TokenExhange() {
+  const tokenEndpointAsserted = assertEnvVar('OAUTH_TOKEN_ENDPOINT')
+  const cookieStore = cookies()
+  const codeVerifier = cookieStore.get('code_verifier')?.value
+  const code = cookieStore.get('code')?.value
   const params = {
     client_id: clientId,
     client_secret: clientSecret,
