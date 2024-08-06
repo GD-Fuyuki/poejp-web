@@ -25,7 +25,7 @@ interface TokenResponse {
   refresh_token?: string;
 }
 
-export async function getAccessToken(code: string, codeVerifier: string): Promise<TokenResponse> {
+export async function getAccessToken(code: string, codeVerifier: string) {
   const tokenEndpoint = getEnvVariable('OAUTH_TOKEN_ENDPOINT');
   const clientId = getEnvVariable('OAUTH_CLIENT_ID');
   const clientSecret = getEnvVariable('OAUTH_CLIENT_SECRET');
