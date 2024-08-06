@@ -17,16 +17,7 @@ export async function GET(request: NextRequest) {
   if (!code || !state || state !== storedState || !codeVerifier) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
-
-    cookies().set('code', code, {
-      maxAge: 1000
-    })
-
     const tokenData = await getAccessToken(code, codeVerifier);
-
-    cookies().set('test_dummy2', 'test2', {
-      maxAge: 100
-    })
 
     // const { access_token } = tokenResponse.data
     // const { username } = tokenResponse.data
@@ -55,10 +46,6 @@ export async function GET(request: NextRequest) {
     //   domain: process.env.NEXT_PUBLIC_DOMAIN,
     //   path: '/',
     // })
-
-    cookies().set('test_dummy3', 'test3', {
-      maxAge: 100
-    })
 
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
