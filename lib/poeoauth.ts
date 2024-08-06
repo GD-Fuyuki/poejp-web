@@ -19,7 +19,7 @@ interface TokenResponse {
 export async function getAccessToken(
   code: string,
   codeVerifier: string
-): Promise<TokenResponse> {
+){
   const tokenEndpoint = 'https://www.pathofexile.com/oauth/token';
   const redirectUri = 'https://poe-jp.com/auth/poe/callback';
   const clientId = process.env.OAUTH_CLIENT_ID;
@@ -42,13 +42,15 @@ export async function getAccessToken(
   console.log('param', data)
 
   try {
-    const response = await axios.post<TokenResponse>(tokenEndpoint, data, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    });
+    // const response = await axios.post<TokenResponse>(tokenEndpoint, data, {
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   }
+    // });
+    
+    console.log('endpoint', tokenEndpoint)
 
-    return response.data;
+    return data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       console.error('OAuth error:', error.response.status, error.response.data);
