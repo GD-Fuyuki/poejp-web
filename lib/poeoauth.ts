@@ -33,6 +33,15 @@ export async function getAccessToken(code: string, codeVerifier: string) {
   const clientSecret = getEnvVariable('OAUTH_CLIENT_SECRET');
   const redirectUri = getEnvVariable('OAUTH_REDIRECT_URI');
 
+  var params = new URLSearchParams();
+  params.append('grant_type', 'authorization_code');
+  params.append('code', code);
+  params.append('client_id', clientId);
+  params.append('client_secret', clientSecret);
+  params.append('redirect_uri', redirectUri);
+  params.append('scope', 'account:profile');
+  params.append('code_verifier', codeVerifier);
+
   const data = querystring.stringify({
     grant_type: 'authorization_code',
     code: code,
@@ -44,7 +53,7 @@ export async function getAccessToken(code: string, codeVerifier: string) {
   });
 
   try {
-    const response = await axios.post(tokenEndpoint, data, {
+    const response = await axios.post(tokenEndpoint, params, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
