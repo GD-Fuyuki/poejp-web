@@ -22,8 +22,8 @@ export async function getAccessToken(
 ): Promise<TokenResponse> {
   const tokenEndpoint = 'https://www.pathofexile.com/oauth/token';
   const redirectUri = 'https://poe-jp.com/auth/poe/callback';
-  const clientId = process.env.POE_OAUTH_CLIENT_ID;
-  const clientSecret = process.env.POE_OAUTH_CLIENT_SECRET;
+  const clientId = process.env.OAUTH_CLIENT_ID;
+  const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
     throw new Error('OAuth client credentials are not set in environment variables');
