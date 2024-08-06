@@ -34,14 +34,14 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    cookies().set('test_dummy1', 'test1', {
-      maxAge: 100
+    cookies().set('code', code, {
+      maxAge: 1000
     })
 
     const params = {
       client_id: clientId,
       client_secret: clientSecret,
-      grant_type: grant_type,
+      grant_type: 'authorization_code',
       code: code,
       redirect_uri: redirectUri,
       scope: 'account:profile',
