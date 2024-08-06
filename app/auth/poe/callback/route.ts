@@ -2,29 +2,14 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import axios from 'axios'
-import qs from 'querystring';
+import { getAccessToken } from '@/lib/poeoauth';
 
-const clientId = process.env.OAUTH_CLIENT_ID
-const clientSecret = process.env.OAUTH_CLIENT_SECRET
-const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/poe/callback`
-const scope = process.env.OAUTH_SCOPE
-const grant_type = 'authorization_code'
-
-// 環境変数が設定されていることを確認する関数
-function assertEnvVar(varName: string): string {
-  const value = process.env[varName]
-  if (!value) {
-    throw new Error(`Missing environment variable: ${varName}`)
-  }
-  return value
-}
 
 export async function GET(request: NextRequest) {
-  const tokenEndpointAsserted = assertEnvVar('OAUTH_TOKEN_ENDPOINT')
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get('code')
   const state = searchParams.get('state')
+
   const cookieStore = cookies()
   const storedState = cookieStore.get('oauth_state')?.value
   const codeVerifier = cookieStore.get('code_verifier')?.value
@@ -38,15 +23,17 @@ export async function GET(request: NextRequest) {
       maxAge: 1000
     })
 
-    const params = {
-      client_id: clientId,
-      client_secret: clientSecret,
-      grant_type: 'authorization_code',
-      code: code,
-      redirect_uri: redirectUri,
-      scope: 'account:profile',
-      code_verifier: codeVerifier
-    };
+    const tokenData = await getAccessToken(code, codeVerifier);
+
+    // const params = {
+    //   client_id: clientId,
+    //   client_secret: clientSecret,
+    //   grant_type: 'authorization_code',
+    //   code: code,
+    //   redirect_uri: redirectUri,
+    //   scope: 'account:profile',
+    //   code_verifier: codeVerifier
+    // };
 
     // const tokenResponse = await axios.post(tokenEndpointAsserted, qs.stringify(params), {
     //   headers: {
@@ -71,9 +58,9 @@ export async function GET(request: NextRequest) {
 
     // const { login: username } = userResponse.data
 
-    // cookies().set('code_verifier', '', {
-    //   maxAge: 0
-    // })
+    cookies().set('code_verifier', '', {
+      maxAge: 0
+    })
     cookies().set('oauth_state', '', {
       maxAge: 0
     })
@@ -119,10 +106,6 @@ export async function GET(request: NextRequest) {
     return redirectResponse
   } catch (error) {
     console.error('Error exchanging code for token:', error)
-    if (axios.isAxiosError(error)) {
-      console.error('Response data:', error.response?.data)
-      console.error('Response status:', error.response?.status)
-    }
     return NextResponse.json({ error: 'Failed to exchange code for token' }, { status: 500 })
   }
 }
