@@ -37,20 +37,20 @@ export async function GET(request: NextRequest) {
       maxAge: 100
     })
 
-    // const tokenResponse = await axios.post(tokenEndpointAsserted, null, {
-    //   params: {
-    //     client_id: clientId,
-    //     client_secret: clientSecret,
-    //     grant_type: grant_type,
-    //     code: code,
-    //     redirect_uri: redirectUri,
-    //     scope: scope,
-    //     code_verifier: codeVerifier
-    //   },
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    // })
+    const tokenResponse = await axios.post(tokenEndpointAsserted, null, {
+      params: {
+        client_id: clientId,
+        client_secret: clientSecret,
+        grant_type: grant_type,
+        code: code,
+        redirect_uri: redirectUri,
+        scope: scope,
+        code_verifier: codeVerifier
+      },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
 
     cookies().set('test_dummy2', 'test2', {
       maxAge: 100
