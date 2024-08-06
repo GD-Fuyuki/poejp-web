@@ -16,12 +16,16 @@ export async function GET() {
     httpOnly: true, 
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
+    path: '/',
+    domain: process.env.NEXT_PUBLIC_DOMAIN,
     maxAge: 60 * 1 // 10 minutes
   })
   response.cookies.set('oauth_state', state, { 
     httpOnly: true, 
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'none',
+    path: '/',
+    domain: process.env.NEXT_PUBLIC_DOMAIN,
     maxAge: 60 * 1 // 10 minutes
   })
 
