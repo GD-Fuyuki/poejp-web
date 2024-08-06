@@ -1,3 +1,5 @@
+'use server'
+
 import { NextResponse } from 'next/server'
 import { generateCodeVerifier, generateCodeChallenge } from '@/lib/pkce'
 import { cookies } from 'next/headers'
