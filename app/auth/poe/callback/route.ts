@@ -33,6 +33,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    cookies().set('test_dummy1', 'test1', {
+      maxAge: 100
+    })
+
     const tokenResponse = await axios.post(tokenEndpointAsserted, null, {
       params: {
         client_id: clientId,
@@ -71,7 +75,7 @@ export async function GET(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 600, // 1 hour
+      maxAge: 3600 * 24,
       domain: process.env.NEXT_PUBLIC_DOMAIN,
       path: '/',
     })
@@ -80,9 +84,13 @@ export async function GET(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: 600, // 1 hour
+      maxAge: 3600 * 24,
       domain: process.env.NEXT_PUBLIC_DOMAIN,
       path: '/',
+    })
+
+    cookies().set('test_dummy2', 'test2', {
+      maxAge: 100
     })
 
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
