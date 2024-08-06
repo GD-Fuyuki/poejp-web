@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
       grant_type: grant_type,
       code: code,
       redirect_uri: redirectUri,
-      scope: scope,
+      scope: 'account:profile',
       code_verifier: codeVerifier
     };
 
