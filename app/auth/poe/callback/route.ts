@@ -62,20 +62,6 @@ export async function GET(request: NextRequest) {
     })
 
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
-    // redirectResponse.cookies.set('oauth_state', '', { maxAge: 0 })
-    // redirectResponse.cookies.set('code_verifier', '', { maxAge: 0 })
-    // redirectResponse.cookies.set('accessToken', access_token, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: 'lax',
-    //   maxAge: 60 * 60 * 24 // 1 day
-    // })
-    // redirectResponse.cookies.set('username', username, {
-    //   httpOnly: true,
-    //   secure: true,
-    //   sameSite: 'lax',
-    //   maxAge: 60 * 60 * 24 // 1 day
-    // })
 
     return redirectResponse
   } catch (error) {
