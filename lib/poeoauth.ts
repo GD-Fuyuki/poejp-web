@@ -33,6 +33,9 @@ export async function getAccessToken(code: string, codeVerifier: string) {
   const clientSecret = getEnvVariable('OAUTH_CLIENT_SECRET');
   const redirectUri = getEnvVariable('OAUTH_REDIRECT_URI');
 
+  console.log(code);
+  console.log(codeVerifier);
+
   var params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);

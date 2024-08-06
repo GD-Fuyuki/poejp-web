@@ -13,6 +13,10 @@ export async function GET(request: NextRequest) {
   const cookieStore = cookies()
   const storedState = cookieStore.get('oauth_state')?.value
   const codeVerifier = cookieStore.get('code_verifier')?.value
+  console.log(code);
+  console.log(state);
+  console.log(storedState);
+  console.log(codeVerifier);
 
   if (!code || !state || state !== storedState || !codeVerifier) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
