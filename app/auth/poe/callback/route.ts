@@ -48,11 +48,11 @@ export async function GET(request: NextRequest) {
       code_verifier: codeVerifier
     };
 
-    const tokenResponse = await axios.post(tokenEndpointAsserted, qs.stringify(params), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
+    // const tokenResponse = await axios.post(tokenEndpointAsserted, qs.stringify(params), {
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    // })
 
     cookies().set('test_dummy2', 'test2', {
       maxAge: 100
