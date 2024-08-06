@@ -18,7 +18,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
 
-  try {
     cookies().set('code', code, {
       maxAge: 1000
     })
@@ -64,8 +63,4 @@ export async function GET(request: NextRequest) {
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
     return redirectResponse
-  } catch (error) {
-    console.error('Error exchanging code for token:', error)
-    return NextResponse.json({ error: 'Failed to exchange code for token' }, { status: 500 })
   }
-}
