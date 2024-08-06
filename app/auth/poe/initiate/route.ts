@@ -11,6 +11,8 @@ const authorizationEndpoint = process.env.OAUTH_AUTHORIZATION_ENDPOINT
 export async function GET() {
 
   const { codeVerifier, codeChallenge } = initiatePKCEFlow();
+  console.log(codeVerifier);
+  console.log(codeChallenge);
   // const codeVerifier = generateCodeVerifier()
   // const codeChallenge = generateCodeChallenge(codeVerifier)
   const state = crypto.randomUUID()
@@ -51,7 +53,6 @@ export async function GET() {
   //   domain: process.env.NEXT_PUBLIC_DOMAIN,
   //   maxAge: 60 * 1 // 10 minutes
   // })
-  await new Promise(resolve => setTimeout(resolve, 1000))
   
   return response
 }
