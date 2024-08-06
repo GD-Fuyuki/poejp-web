@@ -8,16 +8,18 @@ interface GetAccessTokenParams {
 
 interface TokenResponse {
   access_token: string;
-  token_type: string;
   expires_in: number;
-  refresh_token?: string;
+  token_type: string;
   scope: string;
+  username: string;
+  sub: string;
+  refresh_token?: string;
 }
 
-export async function getAccessToken({
-  code,
-  codeVerifier
-}: GetAccessTokenParams): Promise<TokenResponse> {
+export async function getAccessToken(
+  code: string,
+  codeVerifier: string
+): Promise<TokenResponse> {
   const tokenEndpoint = 'https://www.pathofexile.com/oauth/token';
   const redirectUri = 'https://poe-jp.com/auth/poe/callback';
   const clientId = process.env.POE_OAUTH_CLIENT_ID;
