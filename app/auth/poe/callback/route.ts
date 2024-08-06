@@ -71,9 +71,9 @@ export async function GET(request: NextRequest) {
 
     // const { login: username } = userResponse.data
 
-    cookies().set('code_verifier', '', {
-      maxAge: 0
-    })
+    // cookies().set('code_verifier', '', {
+    //   maxAge: 0
+    // })
     cookies().set('oauth_state', '', {
       maxAge: 0
     })
