@@ -1,14 +1,21 @@
 import crypto from 'crypto';
 
-export function generateCodeVerifier() {
-    return crypto.randomBytes(43).toString('base64url');
-  }
+// Code Verifier を生成する関数
+export function generateCodeVerifier(): string {
+  // 43 から 128 文字のランダムな文字列を生成
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  const length = Math.floor(Math.random() * (128 - 43 + 1) + 43);
+  const randomBytes = crypto.randomBytes(length);
+  return Array.from(randomBytes, byte => characters[byte % characters.length]).join('');
+}
 
+// Code Challenge を生成する関数
 export function generateCodeChallenge(codeVerifier: string): string {
   const hash = crypto.createHash('sha256').update(codeVerifier).digest();
   return base64UrlEncode(hash);
 }
 
+// Base64Url エンコーディングを行う関数
 function base64UrlEncode(buffer: Buffer): string {
   return buffer.toString('base64')
     .replace(/\+/g, '-')
@@ -16,12 +23,10 @@ function base64UrlEncode(buffer: Buffer): string {
     .replace(/=+$/, '');
 }
 
+// PKCE フローを開始する関数
 export function initiatePKCEFlow() {
   const codeVerifier = generateCodeVerifier();
   const codeChallenge = generateCodeChallenge(codeVerifier);
-  
-  // Store codeVerifier securely (e.g., in session or encrypted cookie)
-  // Use codeChallenge in the authorization request
   
   return { codeVerifier, codeChallenge };
 }
