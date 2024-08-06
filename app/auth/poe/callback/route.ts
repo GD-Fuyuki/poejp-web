@@ -37,28 +37,28 @@ export async function GET(request: NextRequest) {
       maxAge: 100
     })
 
-    const tokenResponse = await axios.post(tokenEndpointAsserted, null, {
-      params: {
-        client_id: clientId,
-        client_secret: clientSecret,
-        grant_type: grant_type,
-        code: code,
-        redirect_uri: redirectUri,
-        scope: scope,
-        code_verifier: codeVerifier
-      },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
+    // const tokenResponse = await axios.post(tokenEndpointAsserted, null, {
+    //   params: {
+    //     client_id: clientId,
+    //     client_secret: clientSecret,
+    //     grant_type: grant_type,
+    //     code: code,
+    //     redirect_uri: redirectUri,
+    //     scope: scope,
+    //     code_verifier: codeVerifier
+    //   },
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    // })
 
     cookies().set('test_dummy2', 'test2', {
       maxAge: 100
     })
 
 
-    const { access_token } = tokenResponse.data
-    const { username } = tokenResponse.data
+    // const { access_token } = tokenResponse.data
+    // const { username } = tokenResponse.data
 
     // Fetch user information
     // const userResponse = await axios.get('https://api.pathofexile.com/profile', {
@@ -76,23 +76,23 @@ export async function GET(request: NextRequest) {
       maxAge: 0
     })
 
-    cookies().set('accessToken', access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 3600 * 24,
-      domain: process.env.NEXT_PUBLIC_DOMAIN,
-      path: '/',
-    })
+    // cookies().set('accessToken', access_token, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: 'lax',
+    //   maxAge: 3600 * 24,
+    //   domain: process.env.NEXT_PUBLIC_DOMAIN,
+    //   path: '/',
+    // })
   
-    cookies().set('username', username, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 3600 * 24,
-      domain: process.env.NEXT_PUBLIC_DOMAIN,
-      path: '/',
-    })
+    // cookies().set('username', username, {
+    //   httpOnly: true,
+    //   secure: process.env.NODE_ENV === 'production',
+    //   sameSite: 'lax',
+    //   maxAge: 3600 * 24,
+    //   domain: process.env.NEXT_PUBLIC_DOMAIN,
+    //   path: '/',
+    // })
 
     cookies().set('test_dummy3', 'test3', {
       maxAge: 100
