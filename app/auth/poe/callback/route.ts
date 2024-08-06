@@ -3,6 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import axios from 'axios'
+import qs from 'querystring';
 
 const clientId = process.env.OAUTH_CLIENT_ID
 const clientSecret = process.env.OAUTH_CLIENT_SECRET
@@ -37,16 +38,17 @@ export async function GET(request: NextRequest) {
       maxAge: 100
     })
 
-    const tokenResponse = await axios.post(tokenEndpointAsserted, null, {
-      params: {
-        client_id: clientId,
-        client_secret: clientSecret,
-        grant_type: grant_type,
-        code: code,
-        redirect_uri: redirectUri,
-        scope: scope,
-        code_verifier: codeVerifier
-      },
+    const params = {
+      client_id: clientId,
+      client_secret: clientSecret,
+      grant_type: grant_type,
+      code: code,
+      redirect_uri: redirectUri,
+      scope: scope,
+      code_verifier: codeVerifier
+    };
+
+    const tokenResponse = await axios.post(tokenEndpointAsserted, qs.stringify(params), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
