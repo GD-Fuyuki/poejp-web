@@ -4,9 +4,9 @@ import crypto from 'crypto';
 export function generateCodeVerifier(): string {
   const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
   const randomBytes = crypto.randomBytes(64);
-  const test = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk'
-  //return Array.from(randomBytes, byte => charset[byte % charset.length]).join('');
-  return test
+//   const test = 'dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk'
+  return Array.from(randomBytes, byte => charset[byte % charset.length]).join('');
+//   return test
 }
 
 // Code Challengeを生成する関数
