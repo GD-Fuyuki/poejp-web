@@ -45,6 +45,8 @@ export async function getAccessToken(code: string, codeVerifier: string) {
   params.append('scope', 'account:profile');
   params.append('code_verifier', codeVerifier);
 
+  console.log('params', code);
+
   const data = querystring.stringify({
     grant_type: 'authorization_code',
     code: code,
