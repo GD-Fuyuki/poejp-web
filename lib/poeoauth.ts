@@ -36,7 +36,7 @@ export async function getAccessToken(
     code: code,
     redirect_uri: redirectUri,
     scope: 'account:profile',
-    code_verifier: codeVerifier
+    // code_verifier: codeVerifier
   });
 
   console.log('param', data)

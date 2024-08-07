@@ -16,7 +16,8 @@ export async function GET() {
   // const codeVerifier = generateCodeVerifier()
   // const codeChallenge = generateCodeChallenge(codeVerifier)
   const state = crypto.randomUUID()
-  const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile&code_challenge=${codeChallenge}&code_challenge_method=S256`
+  // const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile&code_challenge=${codeChallenge}&code_challenge_method=S256`
+  const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile`
 
   cookies().set('code_verifier', codeVerifier, {
     httpOnly: true,
