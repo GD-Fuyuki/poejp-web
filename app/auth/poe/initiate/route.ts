@@ -1,7 +1,7 @@
 'use server'
 
 import { NextResponse } from 'next/server'
-import { generateCodeVerifier, generateCodeChallenge, initiatePKCEFlow } from '@/lib/pkce'
+import { initiatePKCEFlow } from '@/lib/pkce'
 import { cookies } from 'next/headers'
 
 const clientId = process.env.OAUTH_CLIENT_ID
@@ -13,16 +13,14 @@ export async function GET() {
   const { codeVerifier, codeChallenge } = initiatePKCEFlow();
   console.log(codeVerifier);
   console.log(codeChallenge);
-  // const codeVerifier = generateCodeVerifier()
-  // const codeChallenge = generateCodeChallenge(codeVerifier)
   const state = crypto.randomUUID()
-  // const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile&code_challenge=${codeChallenge}&code_challenge_method=S256`
-  const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile`
+  const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile&code_challenge=${codeChallenge}&code_challenge_method=S256`
+  // const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile`
 
   cookies().set('code_verifier', codeVerifier, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    sameSite: 'none',
     maxAge: 600, // 1 hour
     domain: process.env.NEXT_PUBLIC_DOMAIN,
     path: '/',
@@ -31,7 +29,7 @@ export async function GET() {
   cookies().set('oauth_state', state, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    sameSite: 'none',
     maxAge: 600, // 1 hour
     domain: process.env.NEXT_PUBLIC_DOMAIN,
     path: '/',

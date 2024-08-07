@@ -1,3 +1,5 @@
+'use server'
+
 import axios from 'axios';
 import querystring from 'querystring';
 
@@ -36,10 +38,10 @@ export async function getAccessToken(
     code: code,
     redirect_uri: redirectUri,
     scope: 'account:profile',
-    // code_verifier: codeVerifier
+    code_verifier: codeVerifier
   });
 
-  console.log('param', data)
+  console.log('param:', data)
 
   try {
     const response = await axios.post<TokenResponse>(tokenEndpoint, data, {
@@ -54,7 +56,7 @@ export async function getAccessToken(
     
     console.log('endpoint', tokenEndpoint)
 
-    return data;
+    return response;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
       console.error('OAuth error:', error.response.status, error.response.data);
