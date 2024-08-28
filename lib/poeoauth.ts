@@ -22,7 +22,7 @@ export async function getAccessToken(
     grant_type: 'authorization_code',
     code: code,
     redirect_uri: redirectUri,
-    scope: 'account:profile+account:leagues+account:stashes+account:characters+account:league_accounts',
+    scope: 'account:profile account:leagues account:stashes account:characters account:league_accounts',
     code_verifier: codeVerifier
   });
 
