@@ -19,8 +19,8 @@ export async function GET() {
 
   cookies().set('code_verifier', codeVerifier, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'none',
+    secure: true,
+    sameSite: 'lax',
     maxAge: 600, // 1 hour
     domain: process.env.NEXT_PUBLIC_DOMAIN,
     path: '/',
@@ -28,30 +28,14 @@ export async function GET() {
 
   cookies().set('oauth_state', state, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'none',
+    secure: true,
+    sameSite: 'lax',
     maxAge: 600, // 1 hour
     domain: process.env.NEXT_PUBLIC_DOMAIN,
     path: '/',
   })
 
   const response = NextResponse.json({ authUrl })
-  // response.cookies.set('code_verifier', codeVerifier, { 
-  //   httpOnly: true, 
-  //   secure: true,
-  //   sameSite: 'none',
-  //   path: '/',
-  //   domain: process.env.NEXT_PUBLIC_DOMAIN,
-  //   maxAge: 60 * 1 // 10 minutes
-  // })
-  // response.cookies.set('oauth_state', state, { 
-  //   httpOnly: true, 
-  //   secure: true,
-  //   sameSite: 'none',
-  //   path: '/',
-  //   domain: process.env.NEXT_PUBLIC_DOMAIN,
-  //   maxAge: 60 * 1 // 10 minutes
-  // })
   
   return response
 }

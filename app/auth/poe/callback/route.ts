@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
     const tokenData = await getAccessToken(code, codeVerifier);
+    console.log('tokenData:',tokenData);
 
     // const { access_token } = tokenResponse.data
     // const { username } = tokenResponse.data
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest) {
 
     // cookies().set('accessToken', access_token, {
     //   httpOnly: true,
-    //   secure: process.env.NODE_ENV === 'production',
+    //   secure: false',
     //   sameSite: 'lax',
     //   maxAge: 3600 * 24,
     //   domain: process.env.NEXT_PUBLIC_DOMAIN,
