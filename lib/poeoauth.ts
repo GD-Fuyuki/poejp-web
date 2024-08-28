@@ -22,8 +22,8 @@ export async function getAccessToken(
   code: string,
   codeVerifier: string
 ){
-  const tokenEndpoint = 'https://www.pathofexile.com/oauth/token';
-  const redirectUri = 'https://poe-jp.com/auth/poe/callback';
+  const tokenEndpoint = process.env.OAUTH_TOKEN_ENDPOINT;
+  const redirectUri = process.env.OAUTH_REDIRECT_URI;
   const clientId = process.env.OAUTH_CLIENT_ID;
   const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 

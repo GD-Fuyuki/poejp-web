@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import SideNavigation from "./ui/sidenavigation";
 import Header from "./ui/header";
 
 
@@ -20,7 +19,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <SideNavigation />
           <Header />
           
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
