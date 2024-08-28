@@ -1,9 +1,11 @@
-import { TokenExhange } from "./token";
+'use client'
 
-export default function Page() {
+import ProfileFetcher from "./apiresponse";
+
+export default async function Page() {
   return (
     <div>
-      <TokenExhange />
+      <ProfileFetcher />
     </div>
   );
 }

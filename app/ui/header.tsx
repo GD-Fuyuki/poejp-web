@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, User } from 'lucide-react';
-import GithubOAuthButton from '@/components/ui/GithubOAuthButton';
 import PoeOAuthButton from '@/components/ui/PoeOAuthButton';
 
 interface NavItem {
@@ -40,7 +39,6 @@ const Header: React.FC = () => {
 
         {/* User Action */}
         <div className="hidden md:block">
-          <GithubOAuthButton />
           <PoeOAuthButton />
         </div>
 

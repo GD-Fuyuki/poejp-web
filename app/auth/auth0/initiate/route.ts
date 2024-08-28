@@ -4,9 +4,9 @@ import { NextResponse } from 'next/server'
 import { initiatePKCEFlow } from '@/lib/pkce'
 import { cookies } from 'next/headers'
 
-const clientId = process.env.OAUTH_CLIENT_ID
-const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/poe/callback`
-const authorizationEndpoint = process.env.OAUTH_AUTHORIZATION_ENDPOINT
+const clientId = process.env.AUTH0_CLIENT_ID
+const redirectUri = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/auth0/callback`
+const authorizationEndpoint = process.env.AUTH0_AUTHORIZATION_ENDPOINT
 
 export async function GET() {
 
@@ -19,8 +19,8 @@ export async function GET() {
 
   cookies().set('code_verifier', codeVerifier, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'none',
+    secure: false,
+    sameSite: 'lax',
     maxAge: 600, // 1 hour
     domain: process.env.NEXT_PUBLIC_DOMAIN,
     path: '/',
@@ -28,8 +28,8 @@ export async function GET() {
 
   cookies().set('oauth_state', state, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'none',
+    secure: false,
+    sameSite: 'lax',
     maxAge: 600, // 1 hour
     domain: process.env.NEXT_PUBLIC_DOMAIN,
     path: '/',

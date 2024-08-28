@@ -3,30 +3,20 @@
 import axios from 'axios';
 import querystring from 'querystring';
 
-interface TokenResponse {
-  access_token: string;
-  expires_in: number;
-  token_type: string;
-  scope: string;
-  username: string;
-  sub: string;
-  refresh_token?: string;
-}
-
 export async function getAccessToken(
   code: string,
   codeVerifier: string
 ){
-  const tokenEndpoint: any = process.env.OAUTH_TOKEN_ENDPOINT;
-  const redirectUri = process.env.OAUTH_REDIRECT_URI;
-  const clientId = process.env.OAUTH_CLIENT_ID;
-  const clientSecret = process.env.OAUTH_CLIENT_SECRET;
+  const tokenEndpoint: any = process.env.AUTH0_TOKEN_ENDPOINT;
+  const redirectUri = process.env.AUTH0_REDIRECT_URI;
+  const clientId = process.env.AUTH0_CLIENT_ID;
+  const clientSecret = process.env.AUTH0_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
     throw new Error('OAuth client credentials are not set in environment variables');
   }
 
-  const data = querystring.stringify({
+  const param = querystring.stringify({
     client_id: clientId,
     client_secret: clientSecret,
     grant_type: 'authorization_code',
@@ -36,20 +26,18 @@ export async function getAccessToken(
     code_verifier: codeVerifier
   });
 
-  console.log('param:', data)
-
+  console.log('param:', param)
+  console.log('endpoint', tokenEndpoint)
   try {
-    const response = await axios.post<TokenResponse>(tokenEndpoint, data, {
+    const response = await axios.post(tokenEndpoint, param, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     }).then(function (response) {
-        console.log(response);
+        console.log(response.data);
       }).catch(function (error) {
         console.log(error);
       });;
-    
-    console.log('endpoint', tokenEndpoint)
 
     return response;
   } catch (error) {
