@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from './button'
 
-export default function GithubOAuthButton() {
+export default function Auth0OAuthButton() {
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [username, setUsername] = useState<string | null>(null)
   const router = useRouter()
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const response = await fetch('/auth/github/status')
+      const response = await fetch('/auth/auth0/status')
       const data = await response.json()
       if (data.isLoggedIn) {
         setAccessToken(data.accessToken)
@@ -23,13 +23,13 @@ export default function GithubOAuthButton() {
   }, [])
 
   const initiateOAuth = async () => {
-    const response = await fetch('/auth/github/initiate')
+    const response = await fetch('/auth/auth0/initiate')
     const { authUrl } = await response.json()
     router.push(authUrl)
   }
 
   const logout = async () => {
-    await fetch('/auth/github/logout', { method: 'POST' })
+    await fetch('/auth/poe/logout', { method: 'POST' })
     setAccessToken(null)
     setUsername(null)
     router.refresh()
@@ -38,7 +38,7 @@ export default function GithubOAuthButton() {
   return (
     <div>
       {!accessToken ? (
-        <Button variant="secondary" onClick={initiateOAuth}>Login with Github Acoount</Button>
+        <Button variant="secondary" onClick={initiateOAuth}>Auth0</Button>
       ) : (
         <div>
           <p>ログイン済: {username}</p>
