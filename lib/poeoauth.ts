@@ -1,7 +1,6 @@
 'use server'
 
 import axios from 'axios';
-import querystring from 'querystring';
 
 export async function getAccessToken(
   code: string,
@@ -62,8 +61,9 @@ export async function getAccessToken(
   //   }
   // }
 
+  const tempuri = 'https://qneoaoyizh.execute-api.ap-northeast-1.amazonaws.com/develop/token'
+
   console.log('starting exchange code to token...')
-  // const response = await axios.post(tokenEndpoint, params, config)
-  // return response;
-  return null;
+  const response = await axios.post(tempuri, '', config).then(function (response) {console.log(response);})
+  return response;
 }
