@@ -22,12 +22,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
 
-  async function sleep(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-
-  await sleep(5000);
-
   console.log('starting connect token endpoint...');
     const tokenData = await getAccessToken(code, codeVerifier);
     console.log('tokenData:',tokenData);
