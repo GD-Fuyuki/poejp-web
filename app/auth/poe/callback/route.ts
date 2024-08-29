@@ -56,5 +56,6 @@ export async function GET(request: NextRequest) {
 
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
+    console.log('return redirect Response...')
     return redirectResponse
   }
