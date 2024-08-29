@@ -64,6 +64,6 @@ export async function getAccessToken(
   const tempuri = 'https://qneoaoyizh.execute-api.ap-northeast-1.amazonaws.com/develop/token'
 
   console.log('starting exchange code to token...')
-  const response = await axios.post(tempuri, '', config).then(function (response) {console.log(response.data);})
+  const response = await axios.post(tempuri, '', config).then(function (response) {console.log(response);})
   return response;
 }
