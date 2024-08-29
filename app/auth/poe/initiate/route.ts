@@ -37,6 +37,6 @@ export async function GET() {
 
   const response = NextResponse.json({ authUrl })
   
-  console.log('Oauth process end...')
+  console.log('Oauth process start...')
   return response
 }
