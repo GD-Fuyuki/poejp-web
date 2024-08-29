@@ -25,6 +25,12 @@ export async function getAccessToken(
   params.append('scope', 'account:profile account:leagues account:stashes account:characters account:league_accounts');
   params.append('code_verifier', codeVerifier);
 
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }
+
   const param = {
     client_id: clientId,
     client_secret: clientSecret,
@@ -38,11 +44,7 @@ export async function getAccessToken(
   console.log('param:', params)
   console.log('endpoint', tokenEndpoint)
   try {
-    const response = await axios.post(tokenEndpoint, params, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }).then(function (response) {
+    const response = await axios.post(tokenEndpoint, params, config).then(function (response) {
         console.log(response.data);
       }).catch(function (error) {
         console.log(error);
