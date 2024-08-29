@@ -43,6 +43,13 @@ export async function getAccessToken(
 
   console.log('param:', params)
   console.log('endpoint', tokenEndpoint)
+
+  async function sleep(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  await sleep(2000);
+
   try {
     const response = await axios.post(tokenEndpoint, params, config).then(function (response) {
         console.log(response.data);
