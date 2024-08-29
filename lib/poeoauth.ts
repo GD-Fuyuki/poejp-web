@@ -48,7 +48,7 @@ export async function getAccessToken(
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
-  await sleep(2000);
+  await sleep(5000);
 
   try {
     const response = await axios.post(tokenEndpoint, params, config).then(function (response) {
