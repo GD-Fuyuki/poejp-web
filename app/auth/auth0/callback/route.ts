@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { getAccessToken } from '@/lib/auth0';
+import { getAccessToken } from '@/lib/poeoauth';
 
 
 export async function GET(request: NextRequest) {
