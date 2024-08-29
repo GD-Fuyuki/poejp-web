@@ -3,9 +3,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { getAccessToken } from '@/lib/poeoauth';
-
+import axios from 'axios';
 
 export async function GET(request: NextRequest) {
+  const tokenEndpoint: any = process.env.OAUTH_TOKEN_ENDPOINT;
+  const redirectUri: any = process.env.OAUTH_REDIRECT_URI;
+  const clientId: any = process.env.OAUTH_CLIENT_ID;
+  const clientSecret: any = process.env.OAUTH_CLIENT_SECRET;
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get('code')
   const state = searchParams.get('state')
@@ -22,9 +26,25 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
 
+  var params = new URLSearchParams();
+  params.append('client_id', clientId);
+  params.append('client_secret', clientSecret);
+  params.append('grant_type', 'authorization_code');
+  params.append('code', code);
+  params.append('redirect_uri', redirectUri);
+  params.append('scope', 'account:profile account:leagues account:stashes account:characters account:league_accounts');
+  params.append('code_verifier', codeVerifier);
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  }
+
+
   console.log('starting connect token endpoint...');
-    const tokenData = await getAccessToken(code, codeVerifier);
-    console.log('tokenData:',tokenData);
+  const response = await axios.post(tokenEndpoint, params, config)
+    // const tokenData = await getAccessToken(code, codeVerifier);
+    // console.log('tokenData:',tokenData);
 
     // const { access_token } = tokenResponse.data
     // const { username } = tokenResponse.data
