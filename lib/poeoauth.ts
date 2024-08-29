@@ -65,5 +65,6 @@ export async function getAccessToken(
 
   console.log('starting exchange code to token...')
   const response = await axios.post(tempuri, config).then(function (response) {console.log(response);})
+  console.log(response)
   return response;
 }
