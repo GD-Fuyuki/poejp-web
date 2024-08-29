@@ -8,13 +8,22 @@ export async function getAccessToken(
   codeVerifier: string
 ){
   const tokenEndpoint: any = process.env.OAUTH_TOKEN_ENDPOINT;
-  const redirectUri = process.env.OAUTH_REDIRECT_URI;
+  const redirectUri: any = process.env.OAUTH_REDIRECT_URI;
   const clientId = process.env.OAUTH_CLIENT_ID;
   const clientSecret = process.env.OAUTH_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
     throw new Error('OAuth client credentials are not set in environment variables');
   }
+
+  var params = new URLSearchParams();
+  params.append('client_id', clientId);
+  params.append('client_secret', clientSecret);
+  params.append('grant_type', 'authorization_code');
+  params.append('code', code);
+  params.append('redirect_uri', redirectUri);
+  params.append('scope', 'account:profile account:leagues account:stashes account:characters account:league_accounts');
+  params.append('code_verifier', codeVerifier);
 
   const param = {
     client_id: clientId,
@@ -26,10 +35,10 @@ export async function getAccessToken(
     code_verifier: codeVerifier
   };
 
-  console.log('param:', param)
+  console.log('param:', params)
   console.log('endpoint', tokenEndpoint)
   try {
-    const response = await axios.post(tokenEndpoint, param, {
+    const response = await axios.post(tokenEndpoint, params, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }

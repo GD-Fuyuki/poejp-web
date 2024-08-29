@@ -16,15 +16,15 @@ export async function getAccessToken(
     throw new Error('OAuth client credentials are not set in environment variables');
   }
 
-  const param = querystring.stringify({
+  const param = {
     client_id: clientId,
     client_secret: clientSecret,
     grant_type: 'authorization_code',
     code: code,
     redirect_uri: redirectUri,
-    scope: 'account:profile',
+    // scope: 'account:profile',
     code_verifier: codeVerifier
-  });
+  };
 
   console.log('param:', param)
   console.log('endpoint', tokenEndpoint)
