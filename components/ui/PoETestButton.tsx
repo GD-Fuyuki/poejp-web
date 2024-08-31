@@ -11,6 +11,7 @@ export default function PoETestButton() {
     if (!response.ok) {
         throw new Error('Failed to fetch OAuth token');
       }
+      console.log('button res:', response)
       return response.json();
   }
 

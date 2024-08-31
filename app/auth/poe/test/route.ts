@@ -22,6 +22,8 @@ export async function GET() {
   const code = cookieStore.get('code')?.value
   const codeVerifier = cookieStore.get('code_verifier')?.value
 
+  console.log('start fetch poe access token')
+
   try {
     const response = await axios.post<TokenResponse>(
       'https://www.pathofexile.com/oauth/token',
