@@ -1,46 +1,12 @@
-import { Suspense } from 'react';
+'use client'
 
-interface TokenResponse {
-  access_token: string;
-  expires_in: number;
-  token_type: string;
-  scope: string;
-  sub: string;
-  username: string;
-}
+import PoETestButton from "@/components/ui/PoETestButton";
 
-const fetchOAuthToken = async () => {
-    const response = await fetch('https://poe-jp.com/outh/poe/test');
-    if (!response.ok) {
-        throw new Error('Failed to fetch OAuth token');
-      }
-      return response.json();
-  }
-
-function TokenDisplay({ token }: { token: TokenResponse }) {
-  return (
-    <pre style={{
-      backgroundColor: '#f4f4f4',
-      padding: '10px',
-      borderRadius: '5px',
-      overflowX: 'auto',
-      whiteSpace: 'pre-wrap',
-      wordWrap: 'break-word'
-    }}>
-      {JSON.stringify(token, null, 2)}
-    </pre>
-  );
-}
-
-export default async function OAuthTokenPage() {
-  const token: any = await fetchOAuthToken();
+export default function OAuthTokenPage() {
 
   return (
     <div>
-      <h1>OAuth Token</h1>
-      <Suspense fallback={<div>Loading token...</div>}>
-        <TokenDisplay token={token} />
-      </Suspense>
+        <PoETestButton/>
     </div>
   );
 }
