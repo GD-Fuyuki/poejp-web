@@ -21,27 +21,17 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
 
-  cookies().set('code', code, {
-    httpOnly: true,
-    secure: true,
-    sameSite: 'lax',
-    maxAge: 600, // 1 hour
-    domain: process.env.NEXT_PUBLIC_DOMAIN,
-    path: '/',
-  })
-
-
   console.log('starting connect token endpoint...');
-    // const tokenData = await getAccessToken(code, codeVerifier);
+    const tokenData = await getAccessToken(code, codeVerifier);
 
+    cookies().set('code_verifier', '', {
+      maxAge: 0
+    })
+    cookies().set('oauth_state', '', {
+      maxAge: 0
+    })
 
-    // cookies().set('code_verifier', '', {
-    //   maxAge: 0
-    // })
-    // cookies().set('oauth_state', '', {
-    //   maxAge: 0
-    // })
-
+    console.log('token:',tokenData)
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
     console.log('return redirect Response...')
