@@ -1,4 +1,3 @@
-'use client'
 import { Suspense } from 'react';
 
 interface TokenResponse {
@@ -11,7 +10,7 @@ interface TokenResponse {
 }
 
 const fetchOAuthToken = async () => {
-    const response = await fetch('/outh/poe/test');
+    const response = await fetch('https://poe-jp.com/outh/poe/test');
     if (!response.ok) {
         throw new Error('Failed to fetch OAuth token');
       }
@@ -33,8 +32,8 @@ function TokenDisplay({ token }: { token: TokenResponse }) {
   );
 }
 
-export default function OAuthTokenPage() {
-  const token: any = fetchOAuthToken();
+export default async function OAuthTokenPage() {
+  const token: any = await fetchOAuthToken();
 
   return (
     <div>
