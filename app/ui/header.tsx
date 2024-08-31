@@ -14,6 +14,7 @@ const navItems: NavItem[] = [
     { name: 'Top', path: '/' },   
     { name: 'Login Test', path: '/login' },
     { name: 'Check', path: '/check' },
+    { name: 'Test', path: '/test' },
 ];
 
 const Header: React.FC = () => {
