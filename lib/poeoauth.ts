@@ -28,7 +28,7 @@ export async function getAccessToken(
       'scope': 'account:profile account:leagues account:stashes account:characters account:league_accounts',
       'code_verifier': codeVerifier
     })
-  })
+  }).then((response) => response.json()) 
 
   console.log(response)
 
