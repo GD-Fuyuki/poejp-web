@@ -2,6 +2,7 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
 import { cookies } from 'next/headers'
+import * as https from "https";
 
 interface TokenResponse {
   access_token: string;
@@ -22,40 +23,24 @@ export async function GET() {
   const code: any = cookieStore.get('code')?.value
   const codeVerifier: any = cookieStore.get('code_verifier')?.value
 
-  var params = new URLSearchParams();
-  params.append('client_id', clientId);
-  params.append('client_secret', clientSecret);
-  params.append('grant_type', 'authorization_code');
-  params.append('code', code);
-  params.append('redirect_uri', redirectUri);
-  params.append('scope', 'account:profile account:leagues account:stashes account:characters account:league_accounts');
-  params.append('code_verifier', codeVerifier);
-
-  const config = {
+  const response = await fetch(tokenEndpoint, {
+    method: 'POST',
+    mode: 'no-cors',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  }
+    },
+    body: new URLSearchParams({
+      'client_id': clientId,
+      'client_secret': clientSecret,
+      'grant_type': 'authorization_code',
+      'code': code,
+      'redirect_uri': redirectUri,
+      'scope': 'account:profile account:leagues account:stashes account:characters account:league_accounts',
+      'code_verifier': codeVerifier
+    })
+  })
 
+  console.log(response)
 
-  console.log('start fetch poe access token')
-  console.log('param:', params)
-  
-  try {
-    const response = await axios.post<TokenResponse>(
-      'https://www.pathofexile.com/oauth/token',
-      params,
-      config
-    );
-
-    return NextResponse.json(response.data);
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return NextResponse.json(
-        { error: `OAuth token request failed: ${error.response.data.error}` },
-        { status: error.response.status }
-      );
-    }
-    return NextResponse.json({ error: 'An unexpected error occurred' }, { status: 500 });
-  }
+  return NextResponse.json(response)
 }
