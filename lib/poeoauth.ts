@@ -1,4 +1,12 @@
-import axios from 'axios';
+
+interface TokenData {
+  access_token: string;
+  expires_in: number;
+  token_type: string;
+  scope: string;
+  sub: string;
+  username: string;
+}
 
 export async function getAccessToken(
   code: string,
@@ -29,8 +37,6 @@ export async function getAccessToken(
       'code_verifier': codeVerifier
     })
   }).then((response) => response.json()) 
-
-  console.log(response)
 
   return response;
 }
