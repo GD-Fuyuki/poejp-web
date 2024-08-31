@@ -7,7 +7,7 @@ export default function PoETestButton() {
   const router = useRouter()
 
   const fetchOAuthToken = async () => {
-    const response = await fetch('/outh/poe/test');
+    const response = await fetch('/auth/poe/test');
     if (!response.ok) {
         throw new Error('Failed to fetch OAuth token');
       }
