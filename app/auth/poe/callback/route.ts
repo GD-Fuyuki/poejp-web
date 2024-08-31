@@ -1,5 +1,3 @@
-
-
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { getAccessToken } from '@/lib/poeoauth';
@@ -12,10 +10,6 @@ export async function GET(request: NextRequest) {
   const cookieStore = cookies()
   const storedState = cookieStore.get('oauth_state')?.value
   const codeVerifier = cookieStore.get('code_verifier')?.value
-  console.log('code:',code);
-  console.log('state:',state);
-  console.log('storedState:',storedState);
-  console.log('codeVerifier:',codeVerifier);
 
   if (!code || !state || state !== storedState || !codeVerifier) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
@@ -30,8 +24,22 @@ export async function GET(request: NextRequest) {
     cookies().set('oauth_state', '', {
       maxAge: 0
     })
-
-    console.log('token:',tokenData)
+    cookies().set('username', tokenData.username, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      maxAge: tokenData.expires_in,
+      domain: process.env.NEXT_PUBLIC_DOMAIN,
+      path: '/',
+    })
+    cookies().set('accessToken', tokenData.access_token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'lax',
+      maxAge: tokenData.expires_in,
+      domain: process.env.NEXT_PUBLIC_DOMAIN,
+      path: '/',
+    })
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
     console.log('return redirect Response...')
