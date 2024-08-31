@@ -28,15 +28,6 @@ export async function getAccessToken(
     }
   }
 
-  const param = {
-    client_id: clientId,
-    client_secret: clientSecret,
-    grant_type: 'authorization_code',
-    code: code,
-    redirect_uri: redirectUri,
-    scope: 'account:profile account:leagues account:stashes account:characters account:league_accounts',
-    code_verifier: codeVerifier
-  };
 
   console.log('param:', params)
   console.log('endpoint', tokenEndpoint)
