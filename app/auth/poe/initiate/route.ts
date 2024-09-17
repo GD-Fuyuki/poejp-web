@@ -1,5 +1,3 @@
-
-
 import { NextResponse } from 'next/server'
 import { initiatePKCEFlow } from '@/lib/pkce'
 import { cookies } from 'next/headers'
@@ -11,11 +9,8 @@ const authorizationEndpoint = process.env.OAUTH_AUTHORIZATION_ENDPOINT
 export async function GET() {
 
   const { codeVerifier, codeChallenge } = initiatePKCEFlow();
-  console.log(codeVerifier);
-  console.log(codeChallenge);
   const state = crypto.randomUUID()
   const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&scope=account:profile account:leagues account:stashes account:characters account:league_accounts&state=${state}&redirect_uri=${redirectUri}&code_challenge=${codeChallenge}&code_challenge_method=S256`
-  // const authUrl = `${authorizationEndpoint}?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}&scope=account:profile`
 
   cookies().set('code_verifier', codeVerifier, {
     httpOnly: true,
@@ -37,6 +32,5 @@ export async function GET() {
 
   const response = NextResponse.json({ authUrl })
   
-  console.log('Oauth process start...')
   return response
 }
