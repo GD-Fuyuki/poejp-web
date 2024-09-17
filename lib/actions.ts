@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 
 export async function upsertUser(username: string): Promise<void> {
     const prisma = new PrismaClient();
-    console.log("starting resist user")
+    console.log("starting resist user:",username)
   try {
     await prisma.user.upsert({
       where: { name: username },

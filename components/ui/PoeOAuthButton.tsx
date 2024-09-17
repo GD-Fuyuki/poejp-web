@@ -29,13 +29,21 @@ export default function PoeOAuthButton() {
     router.push(authUrl)
   }
 
+  const logout = async () => {
+    await fetch('/auth/poe/logout', { method: 'POST' })
+    setAccessToken(null)
+    setUsername(null)
+    router.refresh()
+  }
+
   return (
     <div>
       {!accessToken ? (
         <Button variant="default" onClick={initiateOAuth}>Login with PoE Account</Button>
       ) : (
-        <div>
-          <Logined username={username}/>
+        <div className='flex items-center gap-2'>
+          {username}
+          <Button variant="default" onClick={logout}>Logout</Button>
         </div>
       )}
     </div>
