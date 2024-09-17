@@ -1,34 +1,25 @@
 import { Button } from '@/components/ui/button';
 import { findUser, upsertUser } from '@/lib/actions';
-import { PrismaClient } from '@prisma/client';
 import { cookies } from 'next/headers'
+import { sql } from "@vercel/postgres";
 
-
-const prisma = new PrismaClient();
-
-// async function upsertUser(username: string): Promise<void> {
-//   try {
-//     await prisma.user.upsert({
-//       where: { name: username },
-//       update: {}, // 既存のユーザーの場合、更新は行わない
-//       create: { name: username }, // 新規ユーザーの場合、nameを設定して作成
-//     });
-//     console.log(`User ${username} has been processed successfully.`);
-//   } catch (error) {
-//     console.error(`Error processing user ${username}:`, error);
-//   }
-// }
-const Registuser = () => {
+const Registuser = async () => {
   const cookieStore = cookies()
   const username: any = cookieStore.get('username')?.value
-  upsertUser(username)
-  findUser(username)
-
+  // upsertUser(username)
+  // findUser(username)
+  const { rows } = await sql`SELECT * FROM "User"`;
   return (
     <div className='flex flex-col gap-2'>
       <Button>Regist!</Button>
       <Button>find User!</Button>
-      
+      <div>
+      {rows.map((row) => (
+        <div key={row.id}>
+          {row.id} - {row.name}
+        </div>
+      ))}
+    </div>
     </div>
   )
 }
