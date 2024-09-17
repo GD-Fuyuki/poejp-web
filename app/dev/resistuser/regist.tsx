@@ -20,9 +20,10 @@ async function upsertUser(username: string): Promise<void> {
 const Registuser = () => {
   const cookieStore = cookies()
   const username: any = cookieStore.get('username')?.value
+  const regist = upsertUser(username);
   return (
     <div className=''>
-      <Button onClick={upsertUser(username)}>Regist!</Button>
+      <Button>Regist!</Button>
     </div>
   )
 }
