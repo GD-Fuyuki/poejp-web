@@ -1,9 +1,9 @@
 'use server'
 
 import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 export async function upsertUser(username: string): Promise<void> {
-    const prisma = new PrismaClient();
     console.log("starting resist user:",username)
   try {
     await prisma.user.upsert({
@@ -18,14 +18,13 @@ export async function upsertUser(username: string): Promise<void> {
 }
 
 export async function findUser(username: string): Promise<any> {
-    const prisma = new PrismaClient();
     console.log("starting find user:",username)
   try {
     const result = await prisma.user.findFirst({
       where: { name: username },
     });
     console.log(`find User has been processed successfully.`);
-    console.log(result);
+    console.log("find:",result);
   } catch (error) {
     console.error(`Error processing find User`, error);
   }
