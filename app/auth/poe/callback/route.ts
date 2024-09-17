@@ -15,7 +15,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid state or missing code' }, { status: 400 })
   }
 
-  console.log('starting connect token endpoint...');
     const tokenData = await getAccessToken(code, codeVerifier);
 
     cookies().set('code_verifier', '', {
@@ -42,6 +41,5 @@ export async function GET(request: NextRequest) {
     })
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
-    console.log('return redirect Response...')
     return redirectResponse
   }

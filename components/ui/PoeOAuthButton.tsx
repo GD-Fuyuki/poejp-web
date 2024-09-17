@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from './button'
+import Logined from './logined'
 
 export default function PoeOAuthButton() {
   const [accessToken, setAccessToken] = useState<string | null>(null)
@@ -28,21 +29,13 @@ export default function PoeOAuthButton() {
     router.push(authUrl)
   }
 
-  const logout = async () => {
-    await fetch('/auth/poe/logout', { method: 'POST' })
-    setAccessToken(null)
-    setUsername(null)
-    router.refresh()
-  }
-
   return (
     <div>
       {!accessToken ? (
-        <Button variant="secondary" onClick={initiateOAuth}>Login with PoE Acoount</Button>
+        <Button variant="default" onClick={initiateOAuth}>Login with PoE Account</Button>
       ) : (
         <div>
-          <p>ログイン済: {username}</p>
-          <Button variant="secondary" onClick={logout}>Logout</Button>
+          <Logined username={username}/>
         </div>
       )}
     </div>
