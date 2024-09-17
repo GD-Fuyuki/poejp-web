@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { getAccessToken } from '@/lib/poeoauth';
+import { upsertUser } from '@/lib/actions';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -39,6 +40,7 @@ export async function GET(request: NextRequest) {
       domain: process.env.NEXT_PUBLIC_DOMAIN,
       path: '/',
     })
+    upsertUser(tokenData.username)
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
     return redirectResponse
