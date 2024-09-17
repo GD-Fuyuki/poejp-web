@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { getAccessToken } from '@/lib/poeoauth';
 import { upsertUser } from '@/lib/actions';
+import { PrismaClient } from '@prisma/client';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams
@@ -40,7 +41,18 @@ export async function GET(request: NextRequest) {
       domain: process.env.NEXT_PUBLIC_DOMAIN,
       path: '/',
     })
-    upsertUser(tokenData.username)
+    const prisma = new PrismaClient();
+    try {
+      await prisma.user.upsert({
+        where: { name: tokenData.username },
+        update: {}, // 既存のユーザーの場合、更新は行わない
+        create: { name: tokenData.username }, // 新規ユーザーの場合、nameを設定して作成
+      });
+      console.log(`User ${tokenData.username} has been processed successfully.`);
+    } catch (error) {
+      console.error(`Error processing user ${tokenData.username}:`, error);
+    }
+
     const redirectResponse = NextResponse.redirect(new URL('/', request.url))
 
     return redirectResponse
