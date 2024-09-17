@@ -16,3 +16,17 @@ export async function upsertUser(username: string): Promise<void> {
     console.error(`Error processing user ${username}:`, error);
   }
 }
+
+export async function findUser(username: string): Promise<any> {
+    const prisma = new PrismaClient();
+    console.log("starting find user:",username)
+  try {
+    const result = await prisma.user.findFirst({
+      where: { name: username },
+    });
+    console.log(`find User has been processed successfully.`);
+    console.log(result);
+  } catch (error) {
+    console.error(`Error processing find User`, error);
+  }
+}
